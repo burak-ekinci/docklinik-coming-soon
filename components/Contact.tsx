@@ -52,6 +52,16 @@ const enContent = {
   contactEmail: "info@docklinik.de",
 };
 
+function generateCaptcha() {
+  // Basit toplama işlemi
+  const a = Math.floor(Math.random() * 10) + 1;
+  const b = Math.floor(Math.random() * 10) + 1;
+  return {
+    question: `${a} + ${b} = ?`,
+    answer: (a + b).toString(),
+  };
+}
+
 export default function Contact() {
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
@@ -68,6 +78,16 @@ export default function Contact() {
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
   >("idle");
+
+  // Captcha ile ilgili state'ler
+  const [showCaptcha, setShowCaptcha] = useState<boolean>(false);
+  const [captcha, setCaptcha] = useState<{
+    question: string;
+    answer: string;
+  } | null>(null);
+  const [captchaInput, setCaptchaInput] = useState<string>("");
+  const [captchaError, setCaptchaError] = useState<string>("");
+  const [captchaPassed, setCaptchaPassed] = useState<boolean>(false);
 
   useEffect(() => {
     setMounted(true);
@@ -125,6 +145,32 @@ export default function Contact() {
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  // Captcha'yı başlat
+  const startCaptcha = () => {
+    setCaptcha(generateCaptcha());
+    setShowCaptcha(true);
+    setCaptchaInput("");
+    setCaptchaError("");
+  };
+
+  // Captcha doğrulama
+  const handleCaptchaSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (captcha && captchaInput.trim() === captcha.answer) {
+      setShowCaptcha(false);
+      setCaptcha(null);
+      setCaptchaInput("");
+      setCaptchaError("");
+      setCaptchaPassed(true);
+    } else {
+      setCaptchaError(
+        content.language === "de"
+          ? "Falsche Antwort, bitte versuchen Sie es erneut."
+          : "Verification failed, please try again."
+      );
     }
   };
 
@@ -223,7 +269,15 @@ export default function Contact() {
             </div>
           </div>
           <form
-            onSubmit={handleSubmit}
+            onSubmit={(e) => {
+              e.preventDefault();
+              // Eğer captcha daha geçilmediyse, captcha popup aç
+              if (!captchaPassed) {
+                startCaptcha();
+              } else {
+                handleSubmit(e);
+              }
+            }}
             className="px-6 pt-20 pb-24 sm:pb-32 lg:px-8 lg:py-48"
           >
             <div className="mx-auto max-w-xl lg:mr-0 lg:max-w-lg">
@@ -334,6 +388,57 @@ export default function Contact() {
           </form>
         </div>
       </div>
+      {/* Captcha Pop-up */}
+      {showCaptcha && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+          <div className="bg-white rounded-lg shadow-lg p-6 min-w-[320px]">
+            <form onSubmit={handleCaptchaSubmit}>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {content.language === "de"
+                  ? "Bitte beantworten Sie die Verifizierung:"
+                  : "Please answer the verification question:"}
+              </label>
+              <div className="flex justify-center pt-3 pb-1 items-center gap-2  ">
+                <span className="font-semibold text-gray-900 text-lg">
+                  {captcha?.question}
+                </span>
+                <input
+                  type="text"
+                  value={captchaInput}
+                  onChange={(e) => setCaptchaInput(e.target.value)}
+                  className="block w-24 rounded-md bg-white py-2 pl-3 pr-3 text-base text-gray-900 shadow-sm ring-1 ring-offset-1 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm"
+                  required
+                  autoFocus
+                />
+              </div>
+              {captchaError && (
+                <div className="mb-5 text-red-600 text-sm text-center">
+                  {captchaError}
+                </div>
+              )}
+              <div className="flex justify-around gap-2 mt-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowCaptcha(false);
+                    setCaptchaInput("");
+                    setCaptchaError("");
+                  }}
+                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
+                >
+                  {content.language === "de" ? "Abbrechen" : "Cancel"}
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                >
+                  {content.language === "de" ? "Verifizieren" : "Verify"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </>
   );
 }

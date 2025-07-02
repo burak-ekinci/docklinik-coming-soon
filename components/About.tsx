@@ -30,7 +30,7 @@ const deContent = {
   list4Description:
     "KI-gestützte Zeugnisprüfung, Video-Interviews und Unterstützung bei grenz­überschreitender Einstellung sind in Arbeit – damit Sie sich auf die Medizin konzentrieren können, während wir den Rest übernehmen.",
   quote:
-    "Zusammenkommen ist ein Anfang; Zusammenbleiben ist Fortschritt; Zusammenarbeiten ist Erfolg.",
+    "Zusammenkommen ist ein Anfang; Zusammenbleiben ist ein Fortschritt; Zusammenarbeiten ist ein Erfolg.",
   quoteAuthor: "Henry Ford",
   quoteAuthorTitle: "Gründer von Ford",
 };
@@ -132,6 +132,8 @@ export default function About() {
                 </blockquote>
                 <figcaption className="mt-8 flex gap-x-4">
                   <Image
+                    width={100}
+                    height={100}
                     alt=""
                     src="/henry.jpg"
                     className="mt-1 size-10 flex-none rounded-full bg-gray-50"

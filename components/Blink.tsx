@@ -5,7 +5,7 @@ export default function Blink({ lang }: { lang: "de" | "en" }) {
   // const phrases = ["Connect clinics", "with doctors."];
   const phrases =
     lang === "de"
-      ? ["Verbinden kliniken", "mit Ärzt:innen."]
+      ? ["verbinden Kliniken", "mit Ärzt:innen."]
       : ["Connect clinics", "with doctors."];
 
   const [text, setText] = useState("");

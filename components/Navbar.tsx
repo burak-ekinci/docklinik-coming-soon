@@ -48,6 +48,8 @@ const Navbar = ({ theme }: NavbarProps) => {
           <Link href={path} className="-m-1.5 p-1.5">
             <span className="sr-only">Docklinik</span>
             <Image
+              width={100}
+              height={100}
               src="/logo-white.png"
               alt=""
               className={`h-6 w-auto ${
@@ -109,6 +111,8 @@ const Navbar = ({ theme }: NavbarProps) => {
             <Link href="/en" className="-m-1.5 p-1.5">
               <span className="sr-only">Docklinik</span>
               <Image
+                width={100}
+                height={100}
                 src="/logo-white.png"
                 alt=""
                 className={`h-6 w-auto ${
