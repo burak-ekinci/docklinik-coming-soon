@@ -1,0 +1,40 @@
+import { NextResponse } from "next/server";
+import { Templates } from "@/lib/constants";
+import nodemailer from "nodemailer";
+
+export const POST = async (request: Request) => {
+  const { email } = await request.json();
+
+  if (!email || email === "" || email === null || email === undefined) {
+    return NextResponse.json({ valid: false, message: "Email is required" });
+  }
+  const mailOptions = {
+    from: "Docklinik System<info@docklinik.de>",
+    to: "info@docklinik.de",
+    subject: "Notify Me",
+    html: Templates.notifyMeTemplate.replace("{{email}}", email),
+  };
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.GOOGLE_USER,
+      pass: process.env.GOOGLE_PASSWORD,
+    },
+  });
+  try {
+    await transporter.sendMail(mailOptions);
+    return NextResponse.json(
+      { valid: true, message: "Email sent successfully" },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      {
+        valid: false,
+        message: "An error occurred while sending the email.",
+        error,
+      },
+      { status: 500 }
+    );
+  }
+};
