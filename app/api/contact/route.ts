@@ -32,7 +32,10 @@ export async function POST(request: NextRequest) {
     if (phone === "" || phone === null || phone === undefined) {
       return NextResponse.json({ valid: false, message: "Phone is required" });
     }
-
+    console.log("🛑 name:", name);
+    console.log("🛑 email:", email);
+    console.log("🛑 phone:", phone);
+    console.log("🛑 message:", message);
     const mailOptions = {
       from: "Docklinik System<info@docklinik.de>",
       to: "info@docklinik.de",
@@ -43,7 +46,7 @@ export async function POST(request: NextRequest) {
         .replace("{{phone}}", phone)
         .replace("{{message}}", message),
     };
-
+    console.log("🛑 mailOptions:", mailOptions);
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -51,6 +54,9 @@ export async function POST(request: NextRequest) {
         pass: process.env.GOOGLE_PASSWORD,
       },
     });
+    console.log("🛑 google user:", process.env.GOOGLE_USER);
+    console.log("🛑 google pass:", process.env.GOOGLE_PASSWORD);
+    console.log("🛑 transporter:", transporter);
     await transporter.sendMail(mailOptions);
 
     return NextResponse.json(
@@ -61,7 +67,7 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Contact API error:", error);
+    console.log("🛑 contact error:", error);
 
     return NextResponse.json(
       {

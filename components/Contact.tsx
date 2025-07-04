@@ -111,10 +111,20 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus("idle");
-    console.log("name", formData.fullName);
-    console.log("email", formData.email);
-    console.log("phone", formData.phoneNumber);
-    console.log("message", formData.message);
+    console.log("name:", formData.fullName, "type:", typeof formData.fullName);
+    console.log("| email:", formData.email, "type:", typeof formData.email);
+    console.log(
+      "| phone:",
+      formData.phoneNumber,
+      "type:",
+      typeof formData.phoneNumber
+    );
+    console.log(
+      "| message:",
+      formData.message,
+      "type:",
+      typeof formData.message
+    );
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -129,6 +139,7 @@ export default function Contact() {
         }),
       });
 
+      console.log("🛑 response:", response);
       if (response.ok) {
         setSubmitStatus("success");
         setFormData({
@@ -141,8 +152,8 @@ export default function Contact() {
         setSubmitStatus("error");
       }
     } catch (error) {
-      console.error("Contact form error:", error);
       setSubmitStatus("error");
+      console.log("🛑 Contact error:", error);
     } finally {
       setIsSubmitting(false);
     }

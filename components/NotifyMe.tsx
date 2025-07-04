@@ -60,6 +60,7 @@ export default function NotifyMe({ lang }: { lang: "en" | "de" }) {
   const handleSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     setStatus("loading");
+    console.log("🛑 email:", email, "type:", typeof email);
     setMessage("");
     if (!email || email.trim() === "") {
       setStatus("error");
@@ -78,6 +79,7 @@ export default function NotifyMe({ lang }: { lang: "en" | "de" }) {
         },
         body: JSON.stringify({ email }),
       });
+      console.log("🛑 response:", response);
       const data = await response.json();
       if (response.ok && data.valid) {
         setStatus("success");
@@ -98,11 +100,12 @@ export default function NotifyMe({ lang }: { lang: "en" | "de" }) {
         );
       }
     } catch (error) {
+      console.log("🛑 error:", error);
       setStatus("error");
       setMessage(
         lang === "de"
           ? "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut." + error
-          : "An error occurred. Please try again." + error
+          : "An error occurred. Please try again. The error is: " + error
       );
     }
   };

@@ -8,12 +8,14 @@ export const POST = async (request: Request) => {
   if (!email || email === "" || email === null || email === undefined) {
     return NextResponse.json({ valid: false, message: "Email is required" });
   }
+  console.log("🛑 email:", email, "type:", typeof email);
   const mailOptions = {
     from: "Docklinik System<info@docklinik.de>",
     to: "info@docklinik.de",
     subject: "Notify Me",
     html: Templates.notifyMeTemplate.replace("{{email}}", email),
   };
+  console.log("🛑 mailOptions:", mailOptions);
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -21,13 +23,16 @@ export const POST = async (request: Request) => {
       pass: process.env.GOOGLE_PASSWORD,
     },
   });
+  console.log("🛑 google user:", process.env.GOOGLE_USER);
+  console.log("🛑 google pass:", process.env.GOOGLE_PASSWORD);
   try {
-    await transporter.sendMail(mailOptions);
+    transporter.sendMail(mailOptions);
     return NextResponse.json(
       { valid: true, message: "Email sent successfully" },
       { status: 200 }
     );
   } catch (error) {
+    console.log("🛑 sendMail error:", error);
     return NextResponse.json(
       {
         valid: false,
