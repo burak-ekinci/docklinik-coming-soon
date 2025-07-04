@@ -69,8 +69,8 @@ export default function Blink({ lang }: { lang: "de" | "en" }) {
       </h2>
       <p className="text-lg md:text-xl mb-8">
         {lang === "de"
-          ? "DocKlinik ist fast da — verbindet Kliniken und Ärzte auf einer einzigen Plattform."
-          : "DocKlinik is almost here — connecting clinics and doctors on a single platform."}
+          ? "Docklinik – die digitale Brücke zwischen Ärzten und Kliniken."
+          : "Docklinik – the digital bridge between doctors and clinics."}
       </p>
     </div>
   );

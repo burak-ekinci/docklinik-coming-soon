@@ -60,13 +60,8 @@ const DeutschPage: React.FC = () => {
           </div>
 
           {/* =============================== */}
-          <Link
-            href="https://ekinciyazilim.com"
-            target="_blank"
-            className="text-xs mt-7"
-          >
-            ERSTELLT MIT <span className="text-white-500 text-md">♥</span> VON
-            EKINCI YAZILIM
+          <Link href="/de/impressum" className="text-md  mt-7">
+            Impressum
           </Link>
         </div>
       </main>

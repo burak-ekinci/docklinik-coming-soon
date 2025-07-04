@@ -12,7 +12,7 @@ const deContent = {
   language: "de",
   title: "Kontakt",
   description:
-    "Ob Sie Fragen haben, Partnerschaftsanfragen oder einfach nur informiert werden möchten, füllen Sie das Formular rechts aus oder erreichen Sie uns direkt über die untenstehenden Kontaktdaten.",
+    "Sollten Sie Fragen haben, an einer Partnerschaft interessiert sein oder regelmäßig informiert werden wollen, füllen Sie bitte das Formular rechts aus oder kontaktieren Sie uns direkt über die untenstehenden Kontaktdaten.",
   address: "Hauptzentrale Kerpener Str. 154, 50170 Kerpen, Germany",
   phone: "Telefon",
   email: "E-Mail",
@@ -26,15 +26,16 @@ const deContent = {
   send: "Absenden",
   success: "Nachricht erfolgreich gesendet!",
   error: "Fehler beim Senden der Nachricht.",
-  contactPhone: "+49 2273 9510550",
+  contactPhone: "+492273 951055-1",
   contactEmail: "info@docklinik.de",
+  infoBrand: "DocKlinik – eine Marke von HR digi. GmbH",
 };
 
 const enContent = {
   language: "en",
   title: "Get in touch",
   description:
-    "Whether you have questions, partnership inquiries, or just want to be notified, fill out the form on the right or reach us directly via the details below.",
+    "If you have any questions, are interested in a partnership, or would like to receive regular updates, please fill out the form on the right or contact us directly using the contact details below.",
   address: "Hauptzentrale Kerpener Str. 154, 50170 Kerpen, Germany",
   phone: "Phone",
   email: "E-Mail",
@@ -48,8 +49,9 @@ const enContent = {
   send: "Send",
   success: "Message sent successfully!",
   error: "Error sending message.",
-  contactPhone: "+49 2273 9510550",
+  contactPhone: "+492273 951055-1",
   contactEmail: "info@docklinik.de",
+  infoBrand: "DocKlinik – a brand of HR digi GmbH",
 };
 
 function generateCaptcha() {
@@ -111,20 +113,7 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus("idle");
-    console.log("name:", formData.fullName, "type:", typeof formData.fullName);
-    console.log("| email:", formData.email, "type:", typeof formData.email);
-    console.log(
-      "| phone:",
-      formData.phoneNumber,
-      "type:",
-      typeof formData.phoneNumber
-    );
-    console.log(
-      "| message:",
-      formData.message,
-      "type:",
-      typeof formData.message
-    );
+
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -139,7 +128,6 @@ export default function Contact() {
         }),
       });
 
-      console.log("🛑 response:", response);
       if (response.ok) {
         setSubmitStatus("success");
         setFormData({
@@ -153,7 +141,6 @@ export default function Contact() {
       }
     } catch (error) {
       setSubmitStatus("error");
-      console.log("🛑 Contact error:", error);
     } finally {
       setIsSubmitting(false);
     }
@@ -273,6 +260,20 @@ export default function Contact() {
                   <dd>
                     <span className="hover:text-gray-900">
                       {content.contactEmail}
+                    </span>
+                  </dd>
+                </div>
+                <div className="flex gap-x-4 mt-10 ">
+                  <dt className="flex-none">
+                    <span className="sr-only">{content.infoBrand}</span>
+                    <BuildingOffice2Icon
+                      aria-hidden="true"
+                      className="h-7 w-6 text-gray-400"
+                    />
+                  </dt>
+                  <dd>
+                    <span className="hover:text-gray-900">
+                      {content.infoBrand}
                     </span>
                   </dd>
                 </div>

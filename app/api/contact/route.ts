@@ -32,10 +32,7 @@ export async function POST(request: NextRequest) {
     if (phone === "" || phone === null || phone === undefined) {
       return NextResponse.json({ valid: false, message: "Phone is required" });
     }
-    console.log("🛑 name:", name);
-    console.log("🛑 email:", email);
-    console.log("🛑 phone:", phone);
-    console.log("🛑 message:", message);
+
     const mailOptions = {
       from: "Docklinik System<info@docklinik.de>",
       to: "info@docklinik.de",
@@ -46,7 +43,7 @@ export async function POST(request: NextRequest) {
         .replace("{{phone}}", phone)
         .replace("{{message}}", message),
     };
-    console.log("🛑 mailOptions:", mailOptions);
+
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 587, // STARTTLS için
@@ -61,11 +58,8 @@ export async function POST(request: NextRequest) {
       connectionTimeout: 10000, // 10 saniyede bağlanamazsa timeout
       greetingTimeout: 5000, // SMTP selamlama zaman aşımı
     });
-    console.log("🛑 google user:", process.env.GOOGLE_USER);
-    console.log("🛑 google pass:", process.env.GOOGLE_PASSWORD);
-    console.log("🛑 transporter:", transporter);
+
     const info = await transporter.sendMail(mailOptions);
-    console.log("Mail sent, id:", info);
 
     return NextResponse.json(
       {
@@ -75,8 +69,6 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.log("🛑 contact error:", error);
-
     return NextResponse.json(
       {
         valid: false,

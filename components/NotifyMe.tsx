@@ -1,6 +1,7 @@
 "use client";
 import { EnvelopeIcon } from "@heroicons/react/16/solid";
 import { useState } from "react";
+import Link from "next/link";
 
 function generateCaptcha() {
   // Basit toplama işlemi
@@ -60,7 +61,7 @@ export default function NotifyMe({ lang }: { lang: "en" | "de" }) {
   const handleSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     setStatus("loading");
-    console.log("🛑 email:", email, "type:", typeof email);
+
     setMessage("");
     if (!email || email.trim() === "") {
       setStatus("error");
@@ -79,7 +80,7 @@ export default function NotifyMe({ lang }: { lang: "en" | "de" }) {
         },
         body: JSON.stringify({ email }),
       });
-      console.log("🛑 response:", response);
+
       const data = await response.json();
       if (response.ok && data.valid) {
         setStatus("success");
@@ -100,7 +101,6 @@ export default function NotifyMe({ lang }: { lang: "en" | "de" }) {
         );
       }
     } catch (error) {
-      console.log("🛑 error:", error);
       setStatus("error");
       setMessage(
         lang === "de"
@@ -114,92 +114,112 @@ export default function NotifyMe({ lang }: { lang: "en" | "de" }) {
     <div>
       {/* Ekranda ilk başta buton */}
       {open !== true ? (
-        <button
-          type="button"
-          onClick={() => setOpen(!open)}
-          className="px-6 py-2 lg:py-3 bg-white text-gray-900 font-semibold rounded-md shadow hover:bg-gray-700 hover:text-white transition-all duration-300"
-        >
-          {lang === "de" ? "Benachrichtige mich" : "Notify me"}
-        </button>
+        <div className="flex flex-col">
+          <button
+            type="button"
+            onClick={() => setOpen(!open)}
+            className="px-6 py-2 lg:py-3 w-fit bg-white text-gray-900 font-semibold rounded-md shadow hover:bg-gray-700 hover:text-white transition-all duration-300"
+          >
+            {lang === "de" ? "Benachrichtige mich" : "Notify me"}
+          </button>
+          <Link
+            href={lang === "de" ? "/de/kontakt" : "/en/contact"}
+            className="text-md italic text-white mt-3"
+          >
+            {lang === "de"
+              ? "Sichere dir jetzt deinen Platz"
+              : "Secure your spot now"}
+          </Link>
+        </div>
       ) : (
-        <form
-          className="flex flex-col w-full gap-2 lg:flex-row"
-          onSubmit={(e) => {
-            e.preventDefault();
-            // E-posta kontrolü
-            if (!email || email.trim() === "") {
-              setStatus("error");
-              setMessage(
-                lang === "de"
-                  ? "Bitte geben Sie eine gültige E-Mail-Adresse ein."
-                  : "Please enter a valid email address."
-              );
-              return;
-            }
-            // Eğer captcha daha geçilmediyse, captcha popup aç
-            if (!captchaPassed) {
-              startCaptcha();
-            } else {
-              handleSubmit();
-            }
-          }}
-        >
-          <div className="relative w-full">
-            <EnvelopeIcon
-              aria-hidden="true"
-              className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 size-5 text-gray-400"
-            />
-            <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder={
-                lang === "de" ? "Ihre E-Mail-Adresse" : "Your email address"
+        <div className="flex flex-col">
+          <form
+            className="flex flex-col w-full gap-2 lg:flex-row"
+            onSubmit={(e) => {
+              e.preventDefault();
+              // E-posta kontrolü
+              if (!email || email.trim() === "") {
+                setStatus("error");
+                setMessage(
+                  lang === "de"
+                    ? "Bitte geben Sie eine gültige E-Mail-Adresse ein."
+                    : "Please enter a valid email address."
+                );
+                return;
               }
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="block w-full rounded-md bg-white py-2 lg:py-3 pl-10 pr-3 text-base text-gray-900 shadow-sm ring-1 ring-offset-0 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm"
-              required
-              disabled={captchaPassed && status === "loading"}
-            />
-          </div>
-          {/* Captcha geçilmediyse Send butonu gösterme */}
-          {captchaPassed ? (
-            <button
-              type="submit"
-              disabled={status === "loading"}
-              className="w-full lg:w-auto px-6 py-2 lg:py-2 bg-white text-gray-900 font-semibold rounded-md shadow hover:bg-gray-700 hover:text-white transition-all duration-300 disabled:opacity-60"
-            >
-              {status === "loading" && lang === "de"
-                ? "Senden..."
-                : status === "loading" && lang === "en"
-                ? "Sending..."
-                : lang === "de"
-                ? "Senden"
-                : "Send"}
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => {
-                // E-posta kontrolü
-                if (!email || email.trim() === "") {
-                  setStatus("error");
-                  setMessage(
-                    lang === "de"
-                      ? "Bitte geben Sie eine gültige E-Mail-Adresse ein."
-                      : "Please enter a valid email address."
-                  );
-                  return;
-                }
+              // Eğer captcha daha geçilmediyse, captcha popup aç
+              if (!captchaPassed) {
                 startCaptcha();
-              }}
-              className="w-full lg:w-auto px-6 py-2 lg:py-2 bg-white text-gray-900 font-semibold rounded-md shadow hover:bg-gray-700 hover:text-white transition-all duration-300"
-            >
-              {lang === "de" ? "Verifizieren" : "Verify"}
-            </button>
-          )}
-        </form>
+              } else {
+                handleSubmit();
+              }
+            }}
+          >
+            <div className="relative w-full">
+              <EnvelopeIcon
+                aria-hidden="true"
+                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 size-5 text-gray-400"
+              />
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder={
+                  lang === "de" ? "Ihre E-Mail-Adresse" : "Your email address"
+                }
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="block w-full rounded-md bg-white py-2 lg:py-3 pl-10 pr-3 text-base text-gray-900 shadow-sm ring-1 ring-offset-0 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm"
+                required
+                disabled={captchaPassed && status === "loading"}
+              />
+            </div>
+            {/* Captcha geçilmediyse Send butonu gösterme */}
+            {captchaPassed ? (
+              <button
+                type="submit"
+                disabled={status === "loading"}
+                className="w-full lg:w-auto px-6 py-2 lg:py-2 bg-white text-gray-900 font-semibold rounded-md shadow hover:bg-gray-700 hover:text-white transition-all duration-300 disabled:opacity-60"
+              >
+                {status === "loading" && lang === "de"
+                  ? "Senden..."
+                  : status === "loading" && lang === "en"
+                  ? "Sending..."
+                  : lang === "de"
+                  ? "Senden"
+                  : "Send"}
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  // E-posta kontrolü
+                  if (!email || email.trim() === "") {
+                    setStatus("error");
+                    setMessage(
+                      lang === "de"
+                        ? "Bitte geben Sie eine gültige E-Mail-Adresse ein."
+                        : "Please enter a valid email address."
+                    );
+                    return;
+                  }
+                  startCaptcha();
+                }}
+                className="w-full lg:w-auto px-6 py-2 lg:py-2 bg-white text-gray-900 font-semibold rounded-md shadow hover:bg-gray-700 hover:text-white transition-all duration-300"
+              >
+                {lang === "de" ? "Verifizieren" : "Verify"}
+              </button>
+            )}
+          </form>
+          <Link
+            href={lang === "de" ? "/de/kontakt" : "/en/contact"}
+            className="text-md text-white mt-3 italic"
+          >
+            {lang === "de"
+              ? "Sichere dir jetzt deinen Platz"
+              : "Secure your spot now"}
+          </Link>
+        </div>
       )}
 
       {/* Captcha Pop-up */}

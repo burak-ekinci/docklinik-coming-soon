@@ -12,11 +12,17 @@ import Image from "next/image";
 const deContent = {
   language: "de",
   title: "DocKlinik",
-  subTitle: "Einstellen mit Vertrauen",
+  subTitle: "DocKlinik – die digitale Brücke zwischen Ärzten und Kliniken!",
   description:
     "DocKlinik ist eine Self-Service-Jobplattform, die Kliniken und Ärztinnen/Ärzte schnell, transparent und vertrauensvoll miteinander verbindet. Vom Ausschreiben offener Stellen bis zur Entdeckung idealer Karriereschritte optimieren wir jeden Prozess – damit medizinisches Fachpersonal weniger Zeit mit Suchen und mehr Zeit mit Heilen verbringt.",
+  subTitle2:
+    "DocKlinik – Die innovative Plattform, die Kliniken und Ärzte verbindet",
   description2:
-    "Wir befähigen Kliniken, selbstbewusst einzustellen, und unterstützen Ärztinnen/Ärzte dabei, ihre Laufbahn voranzubringen – mit einer reibungslosen, daten­getriebenen Recruiting-Erfahrung, die speziell auf die Anforderungen des Gesundheitswesens zugeschnitten ist. Legen Sie ein Profil an, definieren Sie Ihre Präferenzen und lassen Sie unsere intelligente Matching-Engine den Rest erledigen. Kliniken veröffentlichen detaillierte Stellen, Ärztinnen/Ärzte präsentieren ihre Expertise, und unsere Plattform verbindet beide Seiten in Echtzeit.",
+    "In der heutigen schnelllebigen Gesundheitswelt ist es wichtiger denn je, den richtigen Arzt am richtigen Ort schnell und unkompliziert zu finden. DocKlinik macht genau das möglich – und zwar auf einer einzigen, übersichtlichen Plattform.",
+  description3:
+    "Ob Kliniken, die qualifizierte Fachkräfte suchen, oder Ärztinnen und Ärzte, die ihre nächste Herausforderung finden möchten: Bei DocKlinik treffen Angebot und Nachfrage direkt und transparent aufeinander. Unsere smarte Plattform erleichtert die Suche, vermittelt passgenau und schafft so neue Möglichkeiten für beide Seiten.",
+  description4:
+    "Mit DocKlinik sparen Sie wertvolle Zeit und Ressourcen, erhöhen die Sichtbarkeit Ihrer Stellenangebote oder Ihres beruflichen Profils und profitieren von einer starken Community im Gesundheitswesen. Innovation trifft hier auf Vertrauen – für eine bessere Vernetzung und eine effektivere Zusammenarbeit.",
   list1Title: "Intelligente Matching-Engine.",
   list1Description:
     "Proprietäre Algorithmen finden in Sekundenschnelle die besten Arzt-Klinik-Paare und sparen beiden Seiten unzählige Stunden.",
@@ -38,23 +44,29 @@ const deContent = {
 const enContent = {
   language: "en",
   title: "DocKlinik",
-  subTitle: "Hire confidently",
+  subTitle: "DocKlinik – the digital bridge between doctors and clinics!",
   description:
-    "DocKlinik is a self‑service job platform that bridges clinics and doctors with speed, transparency, and trust. From posting open positions to discovering ideal career moves, we streamline every step—so healthcare professionals spend less time searching and more time healing.",
+    "DocKlinik is a self-service job platform that bridges clinics and doctors with speed, transparency, and trust. From posting open positions to discovering ideal career moves, we streamline every step—so healthcare professionals spend less time searching and more time healing.",
+  subTitle2:
+    "DocKlinik – the innovative platform that connects clinics and doctors",
   description2:
-    "We empower clinics to hire confidently and doctors to advance their careers—by delivering a frictionless, data‑driven hiring experience built for the unique demands of healthcare. Create a profile, set your preferences, and let our smart matching engine do the rest. Clinics post detailed roles, doctors showcase expertise, and our platform connects both sides in real time.",
+    "In today’s fast-moving healthcare world, quickly and effortlessly finding the right doctor in the right place has never been more important. DocKlinik makes this possible on a single, clear-cut platform.",
+  description3:
+    "Whether you’re a clinic searching for qualified specialists or a physician looking for your next challenge, DocKlinik brings supply and demand together directly and transparently. Our smart platform streamlines the search process, matches the perfect candidates, and opens new opportunities for both sides.",
+  description4:
+    "With DocKlinik you save valuable time and resources, boost the visibility of your job postings or professional profile, and benefit from a strong community within the healthcare sector. Here, innovation meets trust—enabling better networking and more effective collaboration.",
   list1Title: "Smart matching engine.",
   list1Description:
     "Proprietary algorithms surface the best doctor–clinic pairs in seconds, saving both sides countless hours.",
   list2Title: "Compliance & data privacy.",
   list2Description:
-    "Built to meet rigorous GDPR and healthcare‑specific standards, safeguarding every credential and conversation.",
-  list3Title: "Real‑time dashboards.",
+    "Built to meet rigorous GDPR and healthcare-specific standards, safeguarding every credential and conversation.",
+  list3Title: "Real-time dashboards.",
   list3Description:
     "Transparent pipelines give clinics and doctors full control, from application to contract signature.",
   list4Title: "Looking ahead",
   list4Description:
-    "AI‑powered credential verification, video interviewing, and cross‑border hiring support are on the way—so you can focus on medicine while we handle what's next.",
+    "AI-powered credential verification, video interviewing, and cross-border hiring support are on the way—so you can focus on medicine while we handle what's next.",
   quote:
     "Coming together is a beginning; keeping together is progress; working together is success.",
   quoteAuthor: "Henry Ford",
@@ -150,7 +162,15 @@ export default function About() {
               </figure>
             </div>
             <div className="max-w-xl text-base/7 text-gray-700 lg:col-span-7">
-              <p>{content.description}</p>
+              <h2 className="text-2xl font-semibold tracking-tight text-gray-900">
+                {content.subTitle2}
+              </h2>
+              <br />
+              <p>{content.description2}</p>
+              <br />
+              <p>{content.description3}</p>
+              <br />
+              <p>{content.description4}</p>
               <ul role="list" className="mt-8 max-w-xl space-y-8 text-gray-600">
                 <li className="flex gap-x-3">
                   <CloudArrowUpIcon
