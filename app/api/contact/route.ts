@@ -57,7 +57,8 @@ export async function POST(request: NextRequest) {
     console.log("🛑 google user:", process.env.GOOGLE_USER);
     console.log("🛑 google pass:", process.env.GOOGLE_PASSWORD);
     console.log("🛑 transporter:", transporter);
-    await transporter.sendMail(mailOptions);
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Mail sent, id:", info);
 
     return NextResponse.json(
       {

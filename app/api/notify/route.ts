@@ -26,7 +26,8 @@ export const POST = async (request: Request) => {
   console.log("🛑 google user:", process.env.GOOGLE_USER);
   console.log("🛑 google pass:", process.env.GOOGLE_PASSWORD);
   try {
-    transporter.sendMail(mailOptions);
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Mail sent, id:", info);
     return NextResponse.json(
       { valid: true, message: "Email sent successfully" },
       { status: 200 }
