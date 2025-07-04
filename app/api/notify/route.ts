@@ -17,11 +17,18 @@ export const POST = async (request: Request) => {
   };
   console.log("🛑 mailOptions:", mailOptions);
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 587, // STARTTLS için
+    secure: false, // false = STARTTLS, true = SSL (port 465)
     auth: {
       user: process.env.GOOGLE_USER,
-      pass: process.env.GOOGLE_PASSWORD,
+      pass: process.env.GOOGLE_PASSWORD, // mutlaka App Password olmalı
     },
+    tls: {
+      rejectUnauthorized: false, // Gerekirse sertifika sorunlarını yoksay
+    },
+    connectionTimeout: 10000, // 10 saniyede bağlanamazsa timeout
+    greetingTimeout: 5000, // SMTP selamlama zaman aşımı
   });
   console.log("🛑 google user:", process.env.GOOGLE_USER);
   console.log("🛑 google pass:", process.env.GOOGLE_PASSWORD);
