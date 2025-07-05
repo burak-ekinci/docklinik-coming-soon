@@ -36,7 +36,7 @@ const deContent = {
   list4Description:
     "KI-gestützte Zeugnisprüfung, Video-Interviews und Unterstützung bei grenz­überschreitender Einstellung sind in Arbeit – damit Sie sich auf die Medizin konzentrieren können, während wir den Rest übernehmen.",
   quote:
-    "Zusammenkommen ist ein Anfang; Zusammenbleiben ist ein Fortschritt; Zusammenarbeiten ist ein Erfolg.",
+    "Wer immer tut, was er schon kann, bleibt immer das, was er schon ist.",
   quoteAuthor: "Henry Ford",
   quoteAuthorTitle: "Gründer von Ford",
 };
@@ -68,7 +68,7 @@ const enContent = {
   list4Description:
     "AI-powered credential verification, video interviewing, and cross-border hiring support are on the way—so you can focus on medicine while we handle what's next.",
   quote:
-    "Coming together is a beginning; keeping together is progress; working together is success.",
+    "If you always do what you’ve always done, you’ll always get what you’ve always gotten.",
   quoteAuthor: "Henry Ford",
   quoteAuthorTitle: "Founder of Ford",
 };

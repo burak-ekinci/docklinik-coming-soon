@@ -4,10 +4,11 @@ import Navbar from "@/components/Navbar";
 import NotifyMe from "@/components/NotifyMe";
 import Link from "next/link";
 import Blink from "./Blink";
+import { useCounter } from "@/lib/useCounter";
 
 const DeutschPage: React.FC = () => {
   const [mounted, setMounted] = useState(false);
-
+  const { counter } = useCounter();
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -46,10 +47,12 @@ const DeutschPage: React.FC = () => {
         </div>
 
         {/* Countdown */}
-        <div className="flex flex-col items-center pb-10 lg:flex-row lg:justify-between lg:items-center">
+        <div className="flex flex-col pb-10 lg:flex-row lg:justify-between lg:items-center">
           {/* =============================== */}
-          <div className="flex justify-center items-end">
-            <span className="text-5xl font-bold">184</span>
+          <div className="flex items-end">
+            <span className="text-5xl font-bold">
+              {counter == null || counter == 0 ? "Loading..." : counter}
+            </span>
 
             <span className="ml-3 text-sm uppercase tracking-wider">
               <div className="flex flex-col">

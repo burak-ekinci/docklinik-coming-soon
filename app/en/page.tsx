@@ -49,9 +49,9 @@ const EnglishPage: React.FC = () => {
         </div>
 
         {/* Countdown */}
-        <div className="flex flex-col items-center pb-10 lg:flex-row lg:justify-between lg:items-center ">
+        <div className="flex flex-col pb-10 lg:flex-row lg:justify-between lg:items-center ">
           {/* =============================== */}
-          <div className="flex justify-center items-end">
+          <div className="flex items-end">
             <span className="text-5xl font-bold">
               {counter == null || counter == 0 ? "Loading..." : counter}
             </span>
