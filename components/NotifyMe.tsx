@@ -122,14 +122,6 @@ export default function NotifyMe({ lang }: { lang: "en" | "de" }) {
           >
             {lang === "de" ? "Benachrichtige mich" : "Notify me"}
           </button>
-          <Link
-            href={lang === "de" ? "/de/kontakt" : "/en/contact"}
-            className="text-md italic text-white mt-3"
-          >
-            {lang === "de"
-              ? "Sichere dir jetzt deinen Platz"
-              : "Secure your spot now"}
-          </Link>
         </div>
       ) : (
         <div className="flex flex-col">
@@ -211,14 +203,6 @@ export default function NotifyMe({ lang }: { lang: "en" | "de" }) {
               </button>
             )}
           </form>
-          <Link
-            href={lang === "de" ? "/de/kontakt" : "/en/contact"}
-            className="text-md text-white mt-3 italic"
-          >
-            {lang === "de"
-              ? "Sichere dir jetzt deinen Platz"
-              : "Secure your spot now"}
-          </Link>
         </div>
       )}
 
@@ -287,6 +271,16 @@ export default function NotifyMe({ lang }: { lang: "en" | "de" }) {
           {message}
         </div>
       )}
+      <div className="mt-3">
+        <Link
+          href={lang === "de" ? "/de/kontakt" : "/en/contact"}
+          className="text-md text-white italic"
+        >
+          {lang === "de"
+            ? "Sichere dir jetzt deinen Platz"
+            : "Secure your spot now"}
+        </Link>
+      </div>
     </div>
   );
 }
